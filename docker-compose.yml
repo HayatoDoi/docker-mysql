@@ -1,0 +1,31 @@
+version: "3.0"
+services:
+
+  dmysql_mysql:
+    image: "mysql"
+    volumes:
+      - "./volume:/var/lib/mysql"
+    environment:
+      - "MYSQL_ROOT_PASSWORD=root" # Mysql root password
+      # - "MYSQL_USER=user"          # Mysql user name
+      # - "MYSQL_PASSWORD=user"      # Mysqp user password
+    ports:
+      - "3306:3306"
+    container_name: "dmysql_mysql"
+
+  dmysql_phpmyadmin:
+    image: "phpmyadmin/phpmyadmin"
+    environment:
+      - "PMA_ARBITRARY=1"
+      - "PMA_HOST=dmysql_mysql"
+      - "PMA_USER=root"     # Mysql login user
+      - "PMA_PASSWORD=root" # Mysql login password
+      # - "PMA_USER=user"     # Mysql login user
+      # - "PMA_PASSWORD=user" # Mysql login password
+    links:
+      - "dmysql_mysql"
+    ports:
+       - "8080:80"
+    # volumes:
+    #    - "/sessions"
+    container_name: "dmysql_phpmyadmin"

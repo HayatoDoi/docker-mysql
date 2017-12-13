@@ -2,9 +2,11 @@ version: "3.0"
 services:
 
   dmysql_mysql:
-    image: "mysql"
+    #image: "mysql"
+    build : "./mysql"
     volumes:
       - "./volume:/var/lib/mysql"
+      - "./log:/var/log/mysql"
     environment:
       - "MYSQL_ROOT_PASSWORD=root" # Mysql root password
       # - "MYSQL_USER=user"          # Mysql user name
